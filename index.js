@@ -200,4 +200,4 @@ client.on("message", async (message) => {
         help(message);
     }
 });
-client.login(settings.token);
+client.login(process.env.DJS_TOKEN);
