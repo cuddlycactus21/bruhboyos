@@ -2,8 +2,7 @@ const Discord = require('discord.js');
 
 const client = new Discord.Client();
 const settings = {
-    prefix: "?",
-    token: "ODA4ODUwMTE2NjE4MzU0NzA5.YCMiXw.vRTom_1nGOek0JxSyIy2ieEh3T0",
+    prefix: "?"
 }
 const {Player} = require("discord-music-player");
 const player = new Player(client, {
@@ -48,9 +47,17 @@ function help(message){
     const commandhelpembed = new Discord.MessageEmbed()
         .setColor("#c22817")
         .setTitle("Help")
-        .addField("!help", "gives helpful info about the commands and what they do")
-        .addField("!random", "returns a random number")
-        .addField("!server", "returns info about the server")
+        .setDescription("You can also @ the bot to display the help page.")
+        .addField("?help", "gives helpful info about the commands and what they do")
+        .addField("?random", "returns a random number")
+        .addField("?server", "returns info about the server")
+        .addField("?play [search]", "plays a YouTube video with the given search or link")
+        .addField("?nowplaying", "returns the currently playing song. Also: ?np")
+        .addField("?clearqueue", "clears the server queue. Also: ?clear")
+        .addField("?seek [seconds]", "seeks to the given amount of seconds inside the song")
+        .addField("?queue", "returns the server queue. Also: ?q")
+        .addField("?skip", "skips the song currently playing. Also: ?fs")
+
     message.channel.send(commandhelpembed);
 }
 
@@ -86,8 +93,12 @@ client.on("message", async (message) => {
                     }
                 }
             } else{
-                let song = await client.player.resume(message.guild.id);
-                message.channel.send(`**Resumed:** \`${song.name}\``);
+                if(client.player.nowPlaying(message.guild.id)){
+                    let song = await client.player.resume(message.guild.id);
+                    message.channel.send(`**Resumed:** \`${song.name}\``);
+                } else{
+                    message.channel.send(":x:**Error: Nothing is Playing!**");
+                }
             }
         }
 
