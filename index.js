@@ -62,9 +62,7 @@ function help(message){
         .addField("?resume", "resumes the song that is now paused")
         .addField("?stop", "stops playing music and leaves the call. Also: ?leave")
         .addField("?shuffle", "shuffles the queue")
-        .addField("?loop", "toggles repeating the current song indefinitely. Also: ?repeat")
-        .addField("?loopqueue", "toggles repeating the queue indefinitely")
-        .addField("?volume [volume]", "sets the player volume. Also: ?v and ?setvolume")
+
     message.channel.send(commandhelpembed);
 }
 
@@ -212,47 +210,6 @@ client.on("message", async (message) => {
         if(command === "shuffle"){
             client.player.shuffle(message.guild.id);
             message.channel.send("**Queue Shuffled!**");
-        }
-
-        if(command === "loop" || command === "repeat"){
-            let toggle = client. player.toggleLoop(message);
-            if(toggle === null){
-                return;
-            }
-            else if(toggle){
-                message.channel.send(":repeat:**Now repeating the current playing song.**");
-            }
-            else{
-                message.channel.send("**No longer repeating the current song.**");
-            }
-        }
-
-        if(command === "loopqueue"){
-            let toggle = client.player.toggleQueueLoop(message);
-            if(toggle === null){
-                return;
-            }
-            else if(toggle){
-                message.channel.send(":repeat:**Now repeating the queue.**");
-            }
-            else{
-                message.channel.send("**No longer repeating the queue.**");
-            }
-        }
-
-        if(command === "v" || command === "volume" || command === "setvolume"){
-            if(parseInt(args[0]) <= 200 && parseInt(args[0]) >= 0){
-                let isdone = client.player.setVolume(message, parseInt(args[0]));
-                if(isDone){
-                    if(parseInt(args[0]) >= 100){
-                        message.channel.send(`:loud_sound:**Volume set to ${args[0]}%**`);
-                    } else{
-                        message.channel.send(`:sound:**Volume set to ${args[0]}%**`);
-                    }
-                }
-            } else{
-                message.channel.send(":x:**Error: Volume must be a number from 0 to 200**");
-            }    
         }
 
     } else if(message.content === "<@!808850116618354709>"){
