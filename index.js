@@ -57,6 +57,11 @@ function help(message){
         .addField("?seek [seconds]", "seeks to the given amount of seconds inside the song")
         .addField("?queue", "returns the server queue. Also: ?q")
         .addField("?skip", "skips the song currently playing. Also: ?fs")
+        .addField("?remove [queue index]", "removes a song with the given index from the queue")
+        .addField("?pause", "pauses the song that is playing")
+        .addField("?resume", "resumes the song that is now paused")
+        .addField("?stop", "stops playing music and leaves the call. Also: ?leave")
+        .addField("?shuffle", "shuffles the queue")
 
     message.channel.send(commandhelpembed);
 }
